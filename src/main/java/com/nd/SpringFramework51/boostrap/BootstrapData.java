@@ -27,17 +27,49 @@ public class BootstrapData implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("BootStrap Started");
+		Publisher publisher = new Publisher();
+		//Publisher publisher = new Publisher("Jaco", "USA", "Los Angeles", "California", "90001");
+		publisher.setName("Jaco");
+		publisher.setAddressLine("USA");
+		publisher.setCity("Los Angeles");
+		publisher.setState("California");
+		publisher.setZip("90001");
+		publisherRepository.save(publisher);
+		
+		System.out.println("Number of publisher : "+publisherRepository.count());
+		
 		Authors robin = new Authors("Robin", "Sharma");
 		Books club = new Books("5 AM CLub", "2973738182836");
+		
 		robin.getBooks().add(club);
 		club.getAuthors().add(robin);
-
+		
+		club.setPublisher(publisher);
+		publisher.getBooks().add(club);
+		
 		authorRepository.save(robin);
 		bookRepository.save(club);
-
-		Publisher publisher = new Publisher("Jaco", "USA", "Los Angeles", "California", "90001");
 		publisherRepository.save(publisher);
-		System.out.println("BootStrap Started");
+		
+		System.out.println("Number of Books : "+ bookRepository.count());
+		System.out.println("Number of books in publisher"+ publisher.getBooks().size());
+		
+		Authors a1 = new Authors("abc", "abc");
+		Books b1 = new Books("AM", "3878237837397");
+		
+		a1.getBooks().add(b1);
+		b1.getAuthors().add(a1);
+		
+		b1.setPublisher(publisher);
+		publisher.getBooks().add(b1);
+		
+		authorRepository.save(a1);
+		bookRepository.save(b1);
+		publisherRepository.save(publisher);
+		
+		
+		System.out.println("Number of Books : "+ bookRepository.count());
+		System.out.println("Number of books in publisher"+ publisher.getBooks().size());
 	}
 
 }

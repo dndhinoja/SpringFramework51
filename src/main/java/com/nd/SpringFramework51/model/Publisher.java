@@ -1,22 +1,29 @@
 package com.nd.SpringFramework51.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.springframework.data.repository.CrudRepository;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Publisher{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	Long publisherId;
-	String name;
-	String addressLine;
-	String city;
-	String state;
-	String zip;
+	private Long publisherId;
+	private String name;
+	private String addressLine;
+	private String city;
+	private String state;
+	private String zip;
+	
+	@OneToMany
+	@JoinColumn(name = "PUBLISHER_ID")
+	private Set<Books> books = new HashSet<>();
 
 	public Publisher() {
 	}
@@ -107,6 +114,14 @@ public class Publisher{
 
 	public void setZip(String zip) {
 		this.zip = zip;
+	}
+
+	public Set<Books> getBooks() {
+		return books;
+	}
+
+	public void setBooks(Set<Books> books) {
+		this.books = books;
 	}
 
 }
