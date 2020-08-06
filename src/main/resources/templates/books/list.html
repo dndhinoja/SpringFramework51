@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lan="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table>
+<tr>
+<th>ID</th>
+<th>TITLE</th>
+<th>PUB. NAME</th>
+</tr>
+<tr th:each="book:${books}">
+<td th:text="${book.booksId}">123</td>
+<td th:text="${book.title}">Title</td>
+<td th:text="${book.publisher.name}">publisher</td>
+</tr>
+</table>
+</body>
+</html>
